@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="vendor/leaflet.css" />
+    <script src="vendor/leaflet.js"></script>
     <script src='polyline.js'></script>
-    <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <script src='viewer.js'></script>
     <style>
       body {
         position: fixed;
@@ -28,35 +29,5 @@
   <body>
     <textarea id='polyline_data'>Polyline here</textarea>
     <div id='map'></div>
-    <script>
-    var map = new L.Map('map').setView([51.505, -0.09], 13);
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      subdomains: 'abc'
-    }).addTo(map)
-
-    var layer = false
-    $('#polyline_data').on('keyup',function(data){
-      //this.value
-      var line = polyline.decode(this.value,5);
-      latlngs = line.map(function(point){ 
-        // console.error(point)
-        return new L.LatLng(point[0],point[1])
-      })
-      
-      if(!layer){
-        layer = new L.Polyline(latlngs, {color: 'red', opacity: 0.8, weight: 5});
-        map.addLayer(layer)
-
-      } else {
-        layer.setLatLngs(latlngs)
-      }
-
-      map.fitBounds(new L.LatLngBounds(latlngs))
-
-
-
-    })
-
-    </script>
   </body>
 </html>
